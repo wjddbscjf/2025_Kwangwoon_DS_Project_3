@@ -93,7 +93,7 @@ bool BFS(Graph *graph, char option, int vertex)
         int curr = q.front();
         q.pop();
 
-        map<int, int> adj;
+        multimap<int, int> adj;
         // Import directional/non-directional neighbor vertices according to options
         if (option == 'O')
             graph->getAdjacentEdgesDirect(curr, &adj);
@@ -101,7 +101,7 @@ bool BFS(Graph *graph, char option, int vertex)
             graph->getAdjacentEdges(curr, &adj);
 
         // Adjacent vertex traversal
-        map<int, int>::iterator it;
+        multimap<int, int>::iterator it;
         for (it = adj.begin(); it != adj.end(); it++)
         {
             int next = it->first;
@@ -161,14 +161,14 @@ bool DFS(Graph *graph, char option, int vertex)
             fout << " -> " << curr;
         }
 
-        map<int, int> adj;
+        multimap<int, int> adj;
         if (option == 'O')
             graph->getAdjacentEdgesDirect(curr, &adj);
         else
             graph->getAdjacentEdges(curr, &adj);
 
         // put it in reverse order so that the smaller number comes out
-        map<int, int>::reverse_iterator rit;
+        multimap<int, int>::reverse_iterator rit;
         for (rit = adj.rbegin(); rit != adj.rend(); rit++)
         {
             int next = rit->first;
@@ -193,10 +193,10 @@ bool Kruskal(Graph *graph)
 
     for (int i = 0; i < size; i++)
     {
-        map<int, int> adj;
+        multimap<int, int> adj;
         graph->getAdjacentEdges(i, &adj);
         // Collect all edges of the graph
-        map<int, int>::iterator it;
+        multimap<int, int>::iterator it;
         for (it = adj.begin(); it != adj.end(); it++)
         {
             int v = it->first;
@@ -288,13 +288,13 @@ bool Dijkstra(Graph *graph, char option, int vertex)
     // negative weight check
     for (int i = 0; i < size; i++)
     {
-        map<int, int> adj;
+        multimap<int, int> adj;
         if (option == 'O')
             graph->getAdjacentEdgesDirect(i, &adj);
         else
             graph->getAdjacentEdges(i, &adj);
 
-        map<int, int>::iterator it;
+        multimap<int, int>::iterator it;
         for (it = adj.begin(); it != adj.end(); it++)
         {
             if (it->second < 0)
@@ -320,13 +320,13 @@ bool Dijkstra(Graph *graph, char option, int vertex)
         if (dist[curr] < cost)
             continue;
 
-        map<int, int> adj;
+        multimap<int, int> adj;
         if (option == 'O')
             graph->getAdjacentEdgesDirect(curr, &adj);
         else
             graph->getAdjacentEdges(curr, &adj);
 
-        map<int, int>::iterator it;
+        multimap<int, int>::iterator it;
         for (it = adj.begin(); it != adj.end(); it++)
         {
             int next = it->first;
@@ -402,13 +402,13 @@ bool Bellmanford(Graph *graph, char option, int s_vertex, int e_vertex)
             if (dist[u] == INF)
                 continue;
 
-            map<int, int> adj;
+            multimap<int, int> adj;
             if (option == 'O')
                 graph->getAdjacentEdgesDirect(u, &adj);
             else
                 graph->getAdjacentEdges(u, &adj);
 
-            map<int, int>::iterator it;
+            multimap<int, int>::iterator it;
             for (it = adj.begin(); it != adj.end(); it++)
             {
                 int v = it->first;
@@ -429,13 +429,13 @@ bool Bellmanford(Graph *graph, char option, int s_vertex, int e_vertex)
         if (dist[u] == INF)
             continue;
 
-        map<int, int> adj;
+        multimap<int, int> adj;
         if (option == 'O')
             graph->getAdjacentEdgesDirect(u, &adj);
         else
             graph->getAdjacentEdges(u, &adj);
 
-        map<int, int>::iterator it;
+        multimap<int, int>::iterator it;
         for (it = adj.begin(); it != adj.end(); it++)
         {
             int v = it->first;
@@ -498,13 +498,13 @@ bool FLOYD(Graph *graph, char option)
     // Enter initial edge information
     for (int i = 0; i < size; i++)
     {
-        map<int, int> adj;
+        multimap<int, int> adj;
         if (option == 'O')
             graph->getAdjacentEdgesDirect(i, &adj);
         else
             graph->getAdjacentEdges(i, &adj);
 
-        map<int, int>::iterator it;
+        multimap<int, int>::iterator it;
         for (it = adj.begin(); it != adj.end(); it++)
         {
             int v = it->first;
@@ -583,10 +583,10 @@ bool Centrality(Graph *graph)
 
     for (int i = 0; i < size; i++)
     {
-        map<int, int> adj;
+        multimap<int, int> adj;
         graph->getAdjacentEdges(i, &adj); // Centrality is based on a undirected graph
 
-        map<int, int>::iterator it;
+        multimap<int, int>::iterator it;
         for (it = adj.begin(); it != adj.end(); it++)
         {
             int v = it->first;

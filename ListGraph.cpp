@@ -7,7 +7,8 @@ using namespace std;
 // Constructor - Graph Initialization
 ListGraph::ListGraph(bool type, int size) : Graph(type, size)
 {
-    m_List = new map<int, int>[size];
+    m_List = new multimap<int, int>[size];
+    ;
 }
 
 // destructor
@@ -17,49 +18,32 @@ ListGraph::~ListGraph()
 }
 
 // undirected perspective
-void ListGraph::getAdjacentEdges(int vertex, map<int, int> *m)
+void ListGraph::getAdjacentEdges(int vertex, multimap<int, int> *m)
 {
-    map<int, int>::iterator it;
-    for (it = m_List[vertex].begin(); it != m_List[vertex].end(); it++)
+    // all out-degree edges
+    for (auto const &item : m_List[vertex])
     {
-        m->insert(make_pair(it->first, it->second));
+        m->insert(make_pair(item.first, item.second));
     }
 
-    // in-degree
+    // all in-degree edges
     for (int i = 0; i < m_Size; i++)
     {
-        if (i == vertex)
-            continue;
-
-        // check i to vertex
-        auto it = m_List[i].find(vertex);
-        if (it != m_List[i].end())
+        if (i == vertex) continue;
+        
+        for (auto const& item : m_List[i])
         {
-            int neighbor = i;
-            int weight = it->second; // in-degree weight
-
-            // check map
-            auto m_it = m->find(neighbor);
-
-            if (m_it == m->end())
+            if (item.first == vertex)
             {
-                // no data -> inserting
-                m->insert(make_pair(neighbor, weight));
-            }
-            else
-            {
-                // exist data -> compare new data
-                if (weight < m_it->second)
-                {
-                    m_it->second = weight;
-                }
+                // add i as neighborhood
+                m->insert(make_pair(i, item.second));
             }
         }
     }
 }
 
 // Directed perspective
-void ListGraph::getAdjacentEdgesDirect(int vertex, map<int, int> *m)
+void ListGraph::getAdjacentEdgesDirect(int vertex, multimap<int, int> *m)
 {
     for (auto const &item : m_List[vertex])
     {

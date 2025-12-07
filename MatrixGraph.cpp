@@ -32,7 +32,7 @@ MatrixGraph::~MatrixGraph()
 }
 
 // undirected perspective
-void MatrixGraph::getAdjacentEdges(int vertex, map<int, int> *m)
+void MatrixGraph::getAdjacentEdges(int vertex, multimap<int, int> *m)
 {
 	if (vertex < 0 || vertex >= m_Size)
 		return;
@@ -52,7 +52,7 @@ void MatrixGraph::getAdjacentEdges(int vertex, map<int, int> *m)
 	}
 }
 // Directed perspective
-void MatrixGraph::getAdjacentEdgesDirect(int vertex, map<int, int> *m)
+void MatrixGraph::getAdjacentEdgesDirect(int vertex, multimap<int, int>* m)
 {
 	if (vertex < 0 || vertex >= m_Size)
 		return;
