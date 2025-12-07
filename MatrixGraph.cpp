@@ -82,7 +82,7 @@ bool MatrixGraph::printGraph(ofstream *fout)
 
 	*fout << "========PRINT========" << endl;
 
-	*fout << "\t\t";
+	*fout << "\t";
 	for (int i = 0; i < m_Size; i++)
 	{
 		*fout << "[" << i << "]" << "\t";

@@ -547,7 +547,7 @@ bool FLOYD(Graph *graph, char option)
     else
         fout << "Undirected Graph Floyd" << endl;
 
-    fout << "\t\t";
+    fout << "\t";
     for (int i = 0; i < size; i++)
         fout << "[" << i << "]" << "\t";
     fout << endl;
