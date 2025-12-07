@@ -19,19 +19,41 @@ ListGraph::~ListGraph()
 // undirected perspective
 void ListGraph::getAdjacentEdges(int vertex, map<int, int> *m)
 {
-    for (auto const &item : m_List[vertex])
+    map<int, int>::iterator it;
+    for (it = m_List[vertex].begin(); it != m_List[vertex].end(); it++)
     {
-        m->insert(make_pair(item.first, item.second));
+        m->insert(make_pair(it->first, it->second));
     }
 
+    // in-degree
     for (int i = 0; i < m_Size; i++)
     {
         if (i == vertex)
-            continue;                     // Except for yourself
-        auto it = m_List[i].find(vertex); ////check an edge from vertex i to vertex
+            continue;
+
+        // check i to vertex
+        auto it = m_List[i].find(vertex);
         if (it != m_List[i].end())
         {
-            m->insert(make_pair(i, it->second)); // Add as neighbor
+            int neighbor = i;
+            int weight = it->second; // in-degree weight
+
+            // check map
+            auto m_it = m->find(neighbor);
+
+            if (m_it == m->end())
+            {
+                // no data -> inserting
+                m->insert(make_pair(neighbor, weight));
+            }
+            else
+            {
+                // exist data -> compare new data
+                if (weight < m_it->second)
+                {
+                    m_it->second = weight;
+                }
+            }
         }
     }
 }
